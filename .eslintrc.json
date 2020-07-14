@@ -63,6 +63,7 @@
     "spaced-comment": 0,
     "prefer-object-spread": 0,
     "import/first": 0,
-    "import/newline-after-import": 0
+    "import/newline-after-import": 0,
+    "no-shadow": 0
   }
 }

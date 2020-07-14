@@ -32,7 +32,7 @@ async function addSeries(req: Request, res: Response) {
 
   console.log(newSeries);
   try {
-    await newSeries.save(function(err, newSeries) {
+    await newSeries.save((err, newSeries) => {
       if (err) return console.error(err);
       console.log(newSeries, " is registed");
       res.json(newSeries);
@@ -44,7 +44,7 @@ async function addSeries(req: Request, res: Response) {
 async function deleteSeries(req: Request, res: Response) {
   const { id } = req.params;
   try {
-    await SeriesCollection.findByIdAndRemove(id).exec(function(err, result) {
+    await SeriesCollection.findByIdAndRemove(id).exec((err, result) => {
       if (err) console.error(err);
       res.json(result && result._id);
     });
@@ -94,7 +94,6 @@ async function updateSeries(req: Request, res: Response) {
 }
 async function loadSeriesPosts(req: Request, res: Response) {
   const { id } = req.params;
-
   try {
     const getPostsInSeries: SeriesDocument | null = await SeriesCollection.findById(
       id

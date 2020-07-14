@@ -55,7 +55,7 @@ export async function addPost(req: Request, res: Response) {
     likes: 0
   });
   try {
-    await SeriesCollection.findById(id, function(err, getSeries) {
+    await SeriesCollection.findById(id, (err, getSeries) => {
       if (err) console.error(err);
       if (getSeries) {
         getSeries.posts.push(newPost);
@@ -121,6 +121,7 @@ export async function updatePost(req: Request, res: Response) {
 export async function likePost(req: Request, res: Response) {
   const day: number = 60 * 60 * 24 * 1000;
   const { id } = req.params;
+  console.log("id", id);
   if (req.hasOwnProperty(id)) {
     res.json("cookie exist");
     return;
@@ -136,6 +137,7 @@ export async function likePost(req: Request, res: Response) {
 //unlike
 export async function unlikePost(req: Request, res: Response) {
   const { id } = req.params;
+  console.log("id",id);
 
   if (!req.cookies[id]) {
     res.json("cookie not exist");
