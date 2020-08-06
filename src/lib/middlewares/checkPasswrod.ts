@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import CommentsDocument from "../../models/comments/CommentsDocument";
 import CommentsCollection from "../../models/comments/CommentsCollection";
 import ReCommentsDocument from "../../models/recomments/ReCommentsDocument";
@@ -58,7 +58,7 @@ export const checkReCommentsPassword = async (
         return;
       }
       if (result) {
-        bcrypt
+        bcryptjs
           .compare(password, result.password)
           .then((result) => {
             console.log("result", result);

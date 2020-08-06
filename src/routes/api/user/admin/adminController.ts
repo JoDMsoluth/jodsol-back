@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 async function login(req: Request, res: Response) {
   const adminPassword = await bcrypt.hash(

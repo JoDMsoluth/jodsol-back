@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
+import bcrypt from "bcryptjs";
 import Joi from "joi";
 import CommentDocument from "../../../../models/comments/CommentsDocument";
 import CommentCollection from "../../../../models/comments/CommentsCollection";
 import BlogPostCollection from "../../../../models/blogPost/BlogPostCollection";
-import bcrypt from "bcrypt";
 
 async function loadComments(req: Request, res: Response) {
   const { id } = req.params;
