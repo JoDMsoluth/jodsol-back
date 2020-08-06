@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import Joi from "joi";
-import CommentDocument from "models/comments/CommentsDocument";
-import CommentCollection from "models/comments/CommentsCollection";
-import BlogPostCollection from "models/blogPost/BlogPostCollection";
+import CommentDocument from "../../../../models/comments/CommentsDocument";
+import CommentCollection from "../../../../models/comments/CommentsCollection";
+import BlogPostCollection from "../../../../models/blogPost/BlogPostCollection";
 import bcrypt from "bcrypt";
 
 async function loadComments(req: Request, res: Response) {
@@ -23,7 +23,7 @@ async function addComment(req: Request, res: Response) {
   const schema: Joi.ObjectSchema = Joi.object().keys({
     userId: Joi.string().required(),
     password: Joi.string().required(),
-    content: Joi.string().required()
+    content: Joi.string().required(),
   });
   const joiResult: Joi.ValidationResult<any> = Joi.validate(req.body, schema);
   if (joiResult.error) {
@@ -45,7 +45,7 @@ async function addComment(req: Request, res: Response) {
             userId,
             password: hashedPassword,
             content,
-            targetId: id
+            targetId: id,
           });
           target.comments.unshift(newComment._id);
           target.save();
@@ -78,7 +78,7 @@ async function updateComment(req: Request, res: Response) {
   const schema: Joi.ObjectSchema = Joi.object().keys({
     userId: Joi.string().required(),
     password: Joi.string().required(),
-    content: Joi.string().required()
+    content: Joi.string().required(),
   });
 
   const joiResult: Joi.ValidationResult<any> = Joi.validate(req.body, schema);
@@ -92,7 +92,7 @@ async function updateComment(req: Request, res: Response) {
       id,
       req.body,
       {
-        new: true
+        new: true,
       }
     ).exec(); // new:true => 업데이트 된 데이터 반환
     if (!newComment) {
@@ -110,7 +110,7 @@ const CommentController = {
   addComment,
   deleteComment,
   updateComment,
-  loadComments
+  loadComments,
 };
 
 export default CommentController;

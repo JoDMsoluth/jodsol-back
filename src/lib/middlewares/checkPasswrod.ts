@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import bcrypt from "bcrypt";
-import CommentsDocument from "models/comments/CommentsDocument";
-import CommentsCollection from "models/comments/CommentsCollection";
-import ReCommentsDocument from "models/recomments/ReCommentsDocument";
-import ReCommentsCollection from "models/recomments/ReCommentsCollection";
+import CommentsDocument from "../../models/comments/CommentsDocument";
+import CommentsCollection from "../../models/comments/CommentsCollection";
+import ReCommentsDocument from "../../models/recomments/ReCommentsDocument";
+import ReCommentsCollection from "../../models/recomments/ReCommentsCollection";
 
 export const checkCommentsPassword = async (
   req: Request,
@@ -16,7 +16,7 @@ export const checkCommentsPassword = async (
   try {
     const getComment: null | CommentsDocument = await CommentsCollection.findOne(
       { _id: id }
-    ).exec(function(err, result) {
+    ).exec(function (err, result) {
       if (err) {
         console.error(err);
         return;
@@ -24,11 +24,11 @@ export const checkCommentsPassword = async (
       if (result) {
         bcrypt
           .compare(password, result.password)
-          .then(result => {
+          .then((result) => {
             console.log("result", result);
             return next();
           })
-          .catch(e => {
+          .catch((e) => {
             console.error(e);
             return;
           });
@@ -52,7 +52,7 @@ export const checkReCommentsPassword = async (
   try {
     const getComment: null | ReCommentsDocument = await ReCommentsCollection.findOne(
       { _id: id }
-    ).exec(function(err, result) {
+    ).exec(function (err, result) {
       if (err) {
         console.error(err);
         return;
@@ -60,11 +60,11 @@ export const checkReCommentsPassword = async (
       if (result) {
         bcrypt
           .compare(password, result.password)
-          .then(result => {
+          .then((result) => {
             console.log("result", result);
             return next();
           })
-          .catch(e => {
+          .catch((e) => {
             console.error(e);
             return;
           });
@@ -80,7 +80,7 @@ export const checkReCommentsPassword = async (
 
 const checkPassword = {
   checkCommentsPassword,
-  checkReCommentsPassword
+  checkReCommentsPassword,
 };
 
 export default checkPassword;

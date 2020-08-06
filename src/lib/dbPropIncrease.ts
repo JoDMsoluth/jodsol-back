@@ -1,5 +1,5 @@
-import BlogPostCollection from "models/blogPost/BlogPostCollection";
-import BlogPostDocument from "models/blogPost/BlogPostDocument";
+import BlogPostCollection from "../models/blogPost/BlogPostCollection";
+import BlogPostDocument from "../models/blogPost/BlogPostDocument";
 
 export default async function dbPropIncrease(
   id: string,
@@ -10,7 +10,7 @@ export default async function dbPropIncrease(
     const newPost: BlogPostDocument | null = await BlogPostCollection.findByIdAndUpdate(
       id,
       {
-        $inc: { [props]: value }
+        $inc: { [props]: value },
       },
       { new: true }
     ).exec(); // new:true => 업데이트 된 데이터 반환

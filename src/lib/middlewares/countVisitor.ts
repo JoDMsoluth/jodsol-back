@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import ViewsCollection from "models/views/ViewsCollection";
-import ViewsDocument from "models/views/ViewsDocument";
+import ViewsCollection from "../../models/views/ViewsCollection";
+import ViewsDocument from "../../models/views/ViewsDocument";
 import moment from "moment";
 
 export const countVisitor = async (
@@ -16,13 +16,13 @@ export const countVisitor = async (
     console.log(req.cookies);
     res.cookie("vwctck", true, {
       maxAge: day,
-      expires: new Date(Date.now() + day)
+      expires: new Date(Date.now() + day),
     });
     try {
       const newPost: ViewsDocument | null = await ViewsCollection.findOneAndUpdate(
         { createAt: nowDate },
         {
-          $inc: { todayViews: 1 }
+          $inc: { todayViews: 1 },
         },
         { new: true }
       ).exec(); // new:true => 업데이트 된 데이터 반환

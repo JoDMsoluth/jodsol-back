@@ -1,5 +1,5 @@
 import { Document } from "mongoose";
-import { UnifiedModel, category } from "types/types.d";
+import { UnifiedModel, category } from "../../types/types.d";
 
 export default interface SeriesDocument extends Document, UnifiedModel {
   coverImg: string;

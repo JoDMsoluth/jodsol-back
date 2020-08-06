@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { checkObjectId } from "lib/middlewares/checkObjectId";
+import { checkObjectId } from "../../../../lib/middlewares/checkObjectId";
 import seriesController from "./seriesController";
 const seriesApi = Router();
 

@@ -1,7 +1,7 @@
 import { Router } from "express";
 import blogApi from "./blog";
 import projectApi from "./project";
-import { countVisitor } from "lib/middlewares/countVisitor";
+import { countVisitor } from "../../lib/middlewares/countVisitor";
 import viewsApi from "./views";
 import emailApi from "./email";
 import userApi from "./user";

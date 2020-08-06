@@ -1,5 +1,5 @@
 import { Router, Request, Response } from "express";
-import { sendEmail } from "configs/smtp";
+import { sendEmail } from "../../../configs/smtp";
 const postApi = Router();
 
 //post

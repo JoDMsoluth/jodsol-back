@@ -1,5 +1,5 @@
 import { Schema, Model } from "mongoose";
-import mongoose from "configs/mongodb";
+import mongoose from "../../configs/mongodb";
 import SeriesDocument from "./SeriesDocument";
 
 export const SeriesSchema: Schema = new Schema(
@@ -9,7 +9,7 @@ export const SeriesSchema: Schema = new Schema(
     desc: String,
     markdown: String,
     category: { type: String, default: "study" },
-    posts: [{ type: mongoose.Schema.Types.ObjectId, ref: "BlogPost" }]
+    posts: [{ type: mongoose.Schema.Types.ObjectId, ref: "BlogPost" }],
   },
   { timestamps: true }
 );

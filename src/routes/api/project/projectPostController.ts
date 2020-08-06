@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import ProjectPostCollection from "models/projectPost/ProjectPostCollection";
-import ProjectPostDocument from "models/projectPost/ProjectPostDocument";
+import ProjectPostCollection from "../../../models/projectPost/ProjectPostCollection";
+import ProjectPostDocument from "../../../models/projectPost/ProjectPostDocument";
 import Joi from "joi";
 import sanitizeHtml from "sanitize-html";
-import { sanitizeOption } from "lib/sanitizeHtml";
+import { sanitizeOption } from "../../../lib/sanitizeHtml";
 
 //readAll
 export async function loadAllPost(req: Request, res: Response) {
@@ -49,7 +49,7 @@ export async function addPost(req: Request, res: Response) {
     coverImg: Joi.string(),
     title: Joi.string().required(),
     markdown: Joi.string().required(),
-    desc: Joi.string()
+    desc: Joi.string(),
   });
 
   const joiResult: Joi.ValidationResult<any> = Joi.validate(req.body, schema);
@@ -68,7 +68,7 @@ export async function addPost(req: Request, res: Response) {
       title,
       markdown: sanitizeHtml(markdown, sanitizeOption),
       desc,
-      category
+      category,
     });
     newPost.save();
     res.json(newPost);
@@ -93,7 +93,7 @@ export async function updatePost(req: Request, res: Response) {
     coverImg: Joi.string(),
     title: Joi.string(),
     markdown: Joi.string(),
-    tags: Joi.string()
+    tags: Joi.string(),
   });
 
   const joiResult: Joi.ValidationResult<any> = Joi.validate(req.body, schema);
@@ -111,7 +111,7 @@ export async function updatePost(req: Request, res: Response) {
       id,
       updateData,
       {
-        new: true
+        new: true,
       }
     ).exec(); // new:true => 업데이트 된 데이터 반환
     if (!newPost) {
@@ -130,7 +130,7 @@ const projectPostController = {
   addPost,
   deletePost,
   updatePost,
-  loadAllPost
+  loadAllPost,
 };
 
 export default projectPostController;

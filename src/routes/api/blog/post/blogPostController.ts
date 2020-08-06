@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import BlogPostCollection from "models/blogPost/BlogPostCollection";
-import BlogPostDocument from "models/blogPost/BlogPostDocument";
+import BlogPostCollection from "../../../../models/blogPost/BlogPostCollection";
+import BlogPostDocument from "../../../../models/blogPost/BlogPostDocument";
 import Joi from "joi";
 import sanitizeHtml from "sanitize-html";
-import { sanitizeOption } from "lib/sanitizeHtml";
-import dbPropIncrease from "lib/dbPropIncrease";
-import SeriesCollection from "models/series/SeriesCollection";
+import { sanitizeOption } from "../../../../lib/sanitizeHtml";
+import dbPropIncrease from "../../../../lib/dbPropIncrease";
+import SeriesCollection from "../../../../models/series/SeriesCollection";
 
 //read
 export async function loadPost(req: Request, res: Response) {
@@ -32,7 +32,7 @@ export async function addPost(req: Request, res: Response) {
     title: Joi.string().required(),
     markdown: Joi.string().required(),
     desc: Joi.string().required(),
-    tags: Joi.string()
+    tags: Joi.string(),
   });
 
   const joiResult: Joi.ValidationResult<any> = Joi.validate(req.body, schema);
@@ -52,7 +52,7 @@ export async function addPost(req: Request, res: Response) {
     markdown: sanitizeHtml(markdown, sanitizeOption),
     tags: hashtags,
     category,
-    likes: 0
+    likes: 0,
   });
   try {
     await SeriesCollection.findById(id, (err, getSeries) => {
@@ -85,7 +85,7 @@ export async function updatePost(req: Request, res: Response) {
     coverImg: Joi.string(),
     title: Joi.string(),
     markdown: Joi.string(),
-    tags: Joi.string()
+    tags: Joi.string(),
   });
 
   const joiResult: Joi.ValidationResult<any> = Joi.validate(req.body, schema);
@@ -103,7 +103,7 @@ export async function updatePost(req: Request, res: Response) {
       id,
       updateData,
       {
-        new: true
+        new: true,
       }
     ).exec(); // new:true => 업데이트 된 데이터 반환
     if (!newPost) {
@@ -128,7 +128,7 @@ export async function likePost(req: Request, res: Response) {
   }
   res.cookie(id, true, {
     maxAge: day,
-    expires: new Date(Date.now() + day)
+    expires: new Date(Date.now() + day),
   });
   const result = await dbPropIncrease(id, "likes", 1);
   res.json(result);
@@ -137,7 +137,7 @@ export async function likePost(req: Request, res: Response) {
 //unlike
 export async function unlikePost(req: Request, res: Response) {
   const { id } = req.params;
-  console.log("id",id);
+  console.log("id", id);
 
   if (!req.cookies[id]) {
     res.json("cookie not exist");
@@ -159,7 +159,7 @@ const postController = {
   updatePost,
   likePost,
   unlikePost,
-  uploadThumbnail
+  uploadThumbnail,
 };
 
 export default postController;

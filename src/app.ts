@@ -15,7 +15,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import router from "routes";
-import initializeViews from "lib/initializeViews";
+import initializeViews from "./lib/initializeViews";
 // import createDummyData from "lib/createDummyData";
 
 // connect to mongodb
@@ -28,13 +28,13 @@ mongoose
     useUnifiedTopology: true,
     useNewUrlParser: true,
     useCreateIndex: true,
-    useFindAndModify: false
+    useFindAndModify: false,
   })
   .then(() => {
     console.log("  MongoDB is connected successfully.");
     // createDummyData();
   })
-  .catch(err => {
+  .catch((err) => {
     console.log(
       `MongoDB connection error. Please make sure MongoDB is running. : ${err.message}`
     );
@@ -47,7 +47,7 @@ app.use(
   cors({
     origin: true,
     credentials: true,
-    exposedHeaders: ["Authorization", "Last-Page"] // i can use res.headers
+    exposedHeaders: ["Authorization", "Last-Page"], // i can use res.headers
   })
 );
 app.use(express.json());
@@ -61,13 +61,13 @@ app.use(
     secret: String(process.env.COOKIE_SECRET),
     cookie: {
       httpOnly: true,
-      secure: false //https를 쓸 때 true
+      secure: false, //https를 쓸 때 true
     },
     store: new MongoStore({
       url: mongoUrl,
-      autoReconnect: true
+      autoReconnect: true,
     }),
-    name: "bck"
+    name: "bck",
   })
 );
 

@@ -1,7 +1,7 @@
 import { Router } from "express";
 import commentsController from "./commentsController";
-import { checkObjectId } from "lib/middlewares/checkObjectId";
-import checkPassword from "lib/middlewares/checkPasswrod";
+import { checkObjectId } from "../../../../lib/middlewares/checkObjectId";
+import checkPassword from "../../../../lib/middlewares/checkPasswrod";
 const commentApi = Router();
 
 //read

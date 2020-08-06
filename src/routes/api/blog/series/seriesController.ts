@@ -1,16 +1,16 @@
 import { Request, Response } from "express";
 import Joi from "joi";
-import SeriesDocument from "models/series/SeriesDocument";
-import SeriesCollection from "models/series/SeriesCollection";
+import SeriesDocument from "../../../../models/series/SeriesDocument";
+import SeriesCollection from "../../../../models/series/SeriesCollection";
 import sanitizeHtml from "sanitize-html";
-import { sanitizeOption } from "lib/sanitizeHtml";
+import { sanitizeOption } from "../../../../lib/sanitizeHtml";
 
 async function addSeries(req: Request, res: Response) {
   const schema: Joi.ObjectSchema = Joi.object().keys({
     coverImg: Joi.string(),
     title: Joi.string().required(),
     markdown: Joi.string().required(),
-    desc: Joi.string().required()
+    desc: Joi.string().required(),
   });
   const joiResult: Joi.ValidationResult<any> = Joi.validate(req.body, schema);
   if (joiResult.error) {
@@ -27,7 +27,7 @@ async function addSeries(req: Request, res: Response) {
     title,
     desc,
     markdown: sanitizeHtml(markdown, sanitizeOption),
-    category
+    category,
   });
 
   console.log(newSeries);
@@ -60,7 +60,7 @@ async function updateSeries(req: Request, res: Response) {
   const schema: Joi.ObjectSchema = Joi.object().keys({
     coverImg: Joi.string(),
     title: Joi.string(),
-    desc: Joi.string()
+    desc: Joi.string(),
   });
 
   const joiResult: Joi.ValidationResult<any> = Joi.validate(req.body, schema);
@@ -79,7 +79,7 @@ async function updateSeries(req: Request, res: Response) {
       id,
       updateData,
       {
-        new: true
+        new: true,
       }
     ).exec(); // new:true => 업데이트 된 데이터 반환
     if (!newSeries) {
@@ -147,7 +147,7 @@ const seriesController = {
   deleteSeries,
   updateSeries,
   loadSeries,
-  loadSeriesPosts
+  loadSeriesPosts,
 };
 
 export default seriesController;

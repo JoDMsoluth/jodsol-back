@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import BlogPostCollection from "models/blogPost/BlogPostCollection";
-import BlogPostDocument from "models/blogPost/BlogPostDocument";
-import { removeHtmlAndShorten } from "lib/sanitizeHtml";
-import SeriesCollection from "models/series/SeriesCollection";
-import SeriesDocument from "models/series/SeriesDocument";
+import BlogPostCollection from "../../../../models/blogPost/BlogPostCollection";
+import BlogPostDocument from "../../../../models/blogPost/BlogPostDocument";
+import { removeHtmlAndShorten } from "../../../../lib/sanitizeHtml";
+import SeriesCollection from "../../../../models/series/SeriesCollection";
+import SeriesDocument from "../../../../models/series/SeriesDocument";
 
 async function loadAllPosts(req: Request, res: Response) {
   console.log("getAllPost");
@@ -54,9 +54,9 @@ async function loadAllPosts(req: Request, res: Response) {
             .exec();
     const postCount: number = await BlogPostCollection.countDocuments().exec();
     res.set("Last-Page", Math.ceil(postCount / 9).toString());
-    getPosts.map(post => ({
+    getPosts.map((post) => ({
       ...post,
-      markdown: removeHtmlAndShorten(post.markdown)
+      markdown: removeHtmlAndShorten(post.markdown),
     }));
     res.json(getPosts);
   } catch (e) {
@@ -103,7 +103,7 @@ async function loadTags(req: Request, res: Response) {
 
   try {
     const hashtags: BlogPostDocument[] | null = await BlogPostCollection.find({
-      category
+      category,
     })
       .select("tags")
       .sort({ tags: 1 })
@@ -139,7 +139,7 @@ async function loadPostsInTag(req: Request, res: Response) {
       .lean()
       .exec();
     const postCount: number = await BlogPostCollection.find({
-      tags: { $in: `#${tag}` }
+      tags: { $in: `#${tag}` },
     })
       .countDocuments()
       .exec();
@@ -194,9 +194,9 @@ async function searchPosts(req: Request, res: Response) {
             .exec();
     const postCount: number = await BlogPostCollection.countDocuments().exec();
     res.set("Last-Page", Math.ceil(postCount / 9).toString());
-    getPosts.map(post => ({
+    getPosts.map((post) => ({
       ...post,
-      markdown: removeHtmlAndShorten(post.markdown)
+      markdown: removeHtmlAndShorten(post.markdown),
     }));
     res.json(getPosts);
   } catch (e) {
@@ -209,7 +209,7 @@ const postsController = {
   loadSeriesPosts,
   loadTags,
   loadPostsInTag,
-  searchPosts
+  searchPosts,
 };
 
 export default postsController;

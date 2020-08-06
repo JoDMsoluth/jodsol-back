@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { checkObjectId } from "lib/middlewares/checkObjectId";
+import { checkObjectId } from "../../../../lib/middlewares/checkObjectId";
 import reCommentController from "./reCommentsController";
-import checkPassword from "lib/middlewares/checkPasswrod";
+import checkPassword from "../../../../lib/middlewares/checkPasswrod";
 
 const reCommentApi = Router();
 

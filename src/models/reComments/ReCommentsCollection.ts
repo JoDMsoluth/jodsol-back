@@ -1,5 +1,5 @@
 import { Schema, Model } from "mongoose";
-import mongoose from "configs/mongodb";
+import mongoose from "../../configs/mongodb";
 import ReCommentsDocument from "./ReCommentsDocument";
 
 const ReCommentsSchema: Schema = new Schema(
@@ -7,7 +7,7 @@ const ReCommentsSchema: Schema = new Schema(
     userId: String,
     password: String,
     content: String,
-    targetId: String
+    targetId: String,
     // comment_id
   },
   { timestamps: true }
